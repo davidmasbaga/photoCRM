@@ -6,10 +6,13 @@ class Server {
     constructor() {
         this.app  = express();
         this.port = process.env.PORT;
-        this.usuariosPath = '/api/usuarios';
+        this.usuariosPath = '/api/users';
+        this.contactsPath = '/api/contacts';
+        // this.invoices = '/api/invoices';        
+        // this.leads = '/api/contacts';
 
-        //Conectar Base de datos
-        // this.connectDB() //Pendiente iniciar nueva DB en mongo atlas
+        // Conectar Base de datos
+        this.connectDB()
 
         // Middlewares
         this.middlewares();
@@ -31,12 +34,13 @@ class Server {
         this.app.use( express.json() );
 
         // Directorio Público
-        this.app.use( express.static('public') );
+        // this.app.use( express.static('public') );
 
     }
 
     routes() {
-        this.app.use( this.usuariosPath, require('../routes/usuarios'));
+        this.app.use( this.usuariosPath, require('../routes/users'));
+        this.app.use( this.contactsPath, require('../routes/contacts'));
     }
 
     listen() {

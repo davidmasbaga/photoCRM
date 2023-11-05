@@ -1,23 +1,15 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
-const dBConnection = async()=>{
+const dBConnection = async () => {
     try {
-        await mongoose.connect(process.env.MONGO_URI,
-            {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-            useCreateIndex: true,
-            useFindAndModify: false
-            });
-            console.log('Connected to database')
-        
+        await mongoose.connect(process.env.MONGO_URI);
+        console.log('Connected to database');
     } catch (error) {
-        console.log('error')
-        throw new Error('Error a la hora de iniciar la base de datos')
-        
+        console.error('Database connection error:', error);
+        throw new Error('Error when starting the database');
     }
 }
 
-module.exports={
+module.exports = {
     dBConnection
-}
+};
